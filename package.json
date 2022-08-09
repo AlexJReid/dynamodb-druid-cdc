@@ -1,0 +1,13 @@
+{
+  "name": "dynamodb-druid-cdc",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+        "server": "shadow-cljs server",
+	"test": "shadow-cljs compile :test && node build/test.js",
+	"release:lambda": "shadow-cljs release :lambda"
+  },
+  "devDependencies": {
+    "shadow-cljs": "2.19.8"
+  }
+}
