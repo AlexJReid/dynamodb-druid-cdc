@@ -2,7 +2,9 @@
 
 Example code from [Using change data capture to perform flexible aggregations with DynamoDB and Druid](https://alexjreid.dev/posts/druid-cdc/)
 
-This is a ClojureScript implementation that will yield the exported JavaScript function `handler` in `dist/ddbcdc/index.js`. This can be directly used as a Lambda function. Actual deployment is left up to you.
+This is a ClojureScript implementation that will yield the exported JavaScript function `handler` in `dist/ddbcdc/index.js` with `npm run release:lambda`. 
+
+This can be directly used as a Lambda function. Actual deployment is left up to you.
 
 Tests can be run using `npm test`. They are also run on every commit to this repository with GitHub Actions.
 

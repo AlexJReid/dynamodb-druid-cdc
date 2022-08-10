@@ -9,20 +9,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         
-      - name: Maven cache
-        id: maven-cache
-        uses: actions/cache@v3.0.5
-        with:
-          path: /root/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/shadow-cljs.edn') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
-            
       - name: Prepare java
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: '11'
+          cache: 'maven'
 
       - name: Install clojure tools
         uses: DeLaGuardo/setup-clojure@9.2
