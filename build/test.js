@@ -1533,6 +1533,7 @@ SHADOW_IMPORT("goog.uri.uri.js");
 SHADOW_IMPORT("goog.string.stringbuffer.js");
 SHADOW_IMPORT("cljs.core.js");
 SHADOW_IMPORT("shadow.test.env.js");
+SHADOW_IMPORT("ddbcdc.core.js");
 SHADOW_IMPORT("clojure.string.js");
 SHADOW_IMPORT("cljs.pprint.js");
 SHADOW_IMPORT("cljs.test.js");

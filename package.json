@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
         "server": "shadow-cljs server",
-	"test": "shadow-cljs compile :test && node build/test.js",
+	"test": "shadow-cljs compile :test",
 	"release:lambda": "shadow-cljs release :lambda"
   },
   "devDependencies": {

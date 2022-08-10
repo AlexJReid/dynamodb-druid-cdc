@@ -1,15 +1,20 @@
 ;; shadow-cljs configuration
-{:lein true
+{:lein false
+ :source-paths
+ ["src/",
+  "test/"]
  :dependencies
  []
  :builds
  {:test   {:target    :node-test
-           :output-to "./build/test.js"}
+           :output-to "./build/test.js"
+           :autorun   true}
   :script {:target    :node-script
            :output-to "./build/node.js"
+           :autorun   true
            :main      ddbcdc.core/start
            :devtools  {:after-load ddbcdc.core/reload}}
   :lambda {:target           :node-library
            :output-to        "./dist/ddbcdc/index.js"
-           :exports          {:handler ddbcdc.core/handler}
+           :exports          {:handler ddbcdc.lambda/handler}
            :compiler-options {:infer-externs :auto}}}}
