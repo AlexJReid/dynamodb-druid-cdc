@@ -8,7 +8,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
+      - name: Cache project dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-clojure-${{ hashFiles('**/shadow-cljs.edn') }}
+          restore-keys: |
+            ${{ runner.os }}-clojure
+
       - name: Prepare java
         uses: actions/setup-java@v3
         with:
@@ -30,3 +38,5 @@ jobs:
 
       - run: npm install
       - run: npm test
+      - run: ls ~/.m2
+
