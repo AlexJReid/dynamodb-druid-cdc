@@ -3,8 +3,8 @@
 
 (defn handler [event _ callback]
   (do
-    (let [dims [:location :status :rating]
-          druid-events (mapcat ddbcdc/process-change-event (:Records event) dims)]
+    (let [dims [:rating :country :language :state]
+          druid-events (mapcat #(ddbcdc/process-change-event %1 dims) (:Records (js->clj event :keywordize-keys true)))]
       ;; do what you need to with druid-events ... send to Kinesis, Kafka, etc.
       (println druid-events))
 
