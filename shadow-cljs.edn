@@ -11,7 +11,6 @@
            :autorun   true}
   :script {:target    :node-script
            :output-to "./build/node.js"
-           :autorun   true
            :main      ddbcdc.core/start
            :devtools  {:after-load ddbcdc.core/reload}}
   :lambda {:target           :node-library
