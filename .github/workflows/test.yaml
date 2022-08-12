@@ -23,12 +23,6 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
 
-#      - name: Install clojure tools
-#        uses: DeLaGuardo/setup-clojure@9.2
-#        with:
-#          cli: 1.10.1.693
-#          lein: 2.9.1
-
       - name: Prepare node
         uses: actions/setup-node@v3
         with:
@@ -36,7 +30,10 @@ jobs:
           cache: 'npm'
 
       - run: npm install
-      - run: npm run server &
-      - run: |
-          timeout 30 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:9630/api)" != "200" ]]; do sleep 5; done' || false
+      - name: Run shadow-cljs server
+        run: npm run server &
+      - name: Wait for shadow-cljs server
+        run: |
+          timeout 45 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:9630/api)" != "200" ]]; do sleep 5; done' || false
+
       - run: npm test
