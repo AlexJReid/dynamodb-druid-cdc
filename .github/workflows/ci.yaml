@@ -1,9 +1,9 @@
-name: Run tests
+name: Build
 
 on: [push]
 
 jobs:
-  tests:
+  cljs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -17,17 +17,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-clojure
 
-      - name: Prepare java
+      - name: Prepare Java
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: '11'
-
-      - name: Install clojure tools
-        uses: DeLaGuardo/setup-clojure@9.2
-        with:
-          cli: 1.10.1.693
-          lein: 2.9.1
 
       - name: Prepare node
         uses: actions/setup-node@v3
@@ -35,7 +29,18 @@ jobs:
           node-version: 16
           cache: 'npm'
 
-      - run: npm install
-      - run: npm test
-      - run: ls ~/.m2
+      - name: Install node dependencies
+        run: npm install
 
+      - name: Run shadow-cljs server
+        run: npm run server &
+
+      - name: Wait for shadow-cljs server
+        run: |
+          timeout 45 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:9630/api)" != "200" ]]; do sleep 5; done' || false
+
+      - name: Run tests
+        run: npm test
+
+      - name: Create release bundle (unused at the moment)
+        run: npm run build
