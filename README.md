@@ -51,7 +51,7 @@ The active IAM role for the machine that hosts Druid will need access to read fr
 
 ## Testing
 
-Tests can be run using `npm test`. They are also run on every commit to this repository with [GitHub Actions](.github/workflows/test.yaml). This workflow also demonstrates how to setup `shadow-cljs` with GitHub Actions.
+Tests can be run using `npm test`. They are also run on every commit to this repository with [GitHub Actions](.github/workflows/ci.yaml). This workflow also demonstrates how to setup `shadow-cljs` with GitHub Actions.
 
 ## Notes
 
