@@ -1,9 +1,9 @@
-name: Run tests
+name: Build
 
 on: [push]
 
 jobs:
-  tests:
+  cljs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -29,11 +29,18 @@ jobs:
           node-version: 16
           cache: 'npm'
 
-      - run: npm install
+      - name: Install node dependencies
+        run: npm install
+
       - name: Run shadow-cljs server
         run: npm run server &
+
       - name: Wait for shadow-cljs server
         run: |
           timeout 45 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' localhost:9630/api)" != "200" ]]; do sleep 5; done' || false
 
-      - run: npm test
+      - name: Run tests
+        run: npm test
+
+      - name: Create release bundle (unused at the moment)
+        run: npm run build
