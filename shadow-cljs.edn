@@ -1,0 +1,22 @@
+;; shadow-cljs configuration
+{:lein false
+ :source-paths
+ ["src/",
+  "test/"]
+ :dependencies
+ []
+ :builds
+ {:test   {:target    :node-test
+           :output-to "./build/test.js"
+           :autorun   true}
+  :script {:target    :node-script
+           :output-to "./build/node.js"
+           :main      ddbcdc.core/start
+           :devtools  {:after-load ddbcdc.core/reload}}
+  :lambda {:target           :node-library
+           :output-to        "./build/lambda.js"
+           :exports          {:handler ddbcdc.lambda/demo-handler
+                              :kinesisHandler ddbcdc.lambda/kinesis-handler                             
+                              :makeHandler ddbcdc.lambda/make-handler
+                              :processDynamoDBStreamEvent ddbcdc.core/js-process-dynamodb-stream-event}
+           :compiler-options {:infer-externs :auto}}}}

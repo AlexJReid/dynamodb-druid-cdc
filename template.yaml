@@ -1,0 +1,52 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Resources:
+  StreamProcessor:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Handler: index.kinesisHandler
+      Runtime: nodejs16.x
+      CodeUri: ./dist
+      Description: Process DynamoDB Streams change events and relays them to Druid.
+      MemorySize: 128
+      Timeout: 10
+      Policies:
+        - Statement:
+            - Sid: AllowKinesisWrite
+              Effect: Allow
+              Action:
+                - kinesis:PutRecord
+                - kinesis:PutRecords
+              Resource: 
+                'Fn::GetAtt':
+                  - DruidStream
+                  - Arn
+      Environment:
+        Variables:
+          KINESIS_STREAM: !Ref DruidStream
+      Events:
+        DDBStream:
+          Type: DynamoDB
+          Properties:
+            Stream:
+              'Fn::GetAtt':
+                - ExampleTable
+                - StreamArn
+            StartingPosition: TRIM_HORIZON
+            BatchSize: 100
+  ExampleTable:
+    Type: 'AWS::DynamoDB::Table'
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: PK
+          AttributeType: S
+      KeySchema:
+        - AttributeName: PK
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+  DruidStream:
+    Type: AWS::Kinesis::Stream
+    Properties:
+      ShardCount: 1
