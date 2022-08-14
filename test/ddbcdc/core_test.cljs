@@ -93,4 +93,8 @@
                :state "Published"
                :timestamp 1659810812
                :retraction true
-               :count -1}])))))
+               :count -1}]))))
+  (testing "MODIFY should ignore unwatched attributes with different values"
+    (let [result (core/process-change-event data/ddb-disparate-old-new watched-dims :PK)]
+      (is (= (count result) 2))      
+      (is (= (keys (first result)) (keys (last result)))))))
