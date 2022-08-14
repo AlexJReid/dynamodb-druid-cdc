@@ -15,7 +15,7 @@ jobs:
           path: ~/.m2/repository
           key: ${{ runner.os }}-clojure-scljs-${{ hashFiles('**/package.json') }}
           restore-keys: |
-            ${{ runner.os }}-clojure-cljs
+            ${{ runner.os }}-clojure-scljs
 
       - name: Prepare Java
         uses: actions/setup-java@v3
