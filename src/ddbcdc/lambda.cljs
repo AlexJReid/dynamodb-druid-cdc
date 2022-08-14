@@ -21,7 +21,7 @@
   [records callback]
   (let [kr  (map (fn [r]
                    {:Data         (clj->jsbuffer r)
-                    :PartitionKey (if (:partition-key r) (:partition-key r) "1")}) records)
+                    :PartitionKey (if-let [pkv (:partition-key r)] pkv "1")}) records)
         cmd (put-records-cmd {:StreamName stream-name
                               :Records kr})]
     (.send kinesis-client cmd callback)))

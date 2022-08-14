@@ -6,7 +6,8 @@
     "server": "shadow-cljs server",
     "test": "shadow-cljs compile :test",
     "build": "shadow-cljs release :lambda && ncc build ./build/lambda.js -o ./dist",
-    "deploy": "sam build && sam deploy --resolve-s3"
+    "deploy": "sam build && sam deploy --resolve-s3",
+    "example": "node example-js-interop/example.js"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.34.0",

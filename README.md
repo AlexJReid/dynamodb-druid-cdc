@@ -12,14 +12,9 @@ https://user-images.githubusercontent.com/1062363/184361881-c6e651ec-b70c-4bc0-9
 
 ## Running the example locally
 
-As a bundled version is included in `dist/` you do not need to `npm install`.
+As a bundled version is included in `dist/` you do not need to `npm install`. Just run `npm run example`. 
 
-```
-cd example-js-interop
-node example.js
-```
-
-[example.js](example-js-interop/example.js) passes the Lambda event payload in [example.json](example-js-interop/example.json) through a test handler, emitting the results to `stdout`. 
+This runs [example.js](example-js-interop/example.js) with the Lambda event payload in [example.json](example-js-interop/example.json) through a test handler, emitting the results to `stdout`.
 
 ## Building and deploying to AWS
 

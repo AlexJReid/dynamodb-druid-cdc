@@ -5,7 +5,7 @@
   become the new value. Disregards keys not having a value of {:S v}."
   [m ks]
   (->> (select-keys m ks)
-       (mapv (fn [[k, v]] (when (:S v) [k (:S v)])))
+       (mapv (fn [[k, v]] (when-let [hoisted (:S v)] [k hoisted])))
        (into {})))
 
 (defn druid-event
